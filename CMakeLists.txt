@@ -9,10 +9,13 @@ add_subdirectory(third_party/userver)
 
 # Common sources
 add_library(${PROJECT_NAME}_objs OBJECT
-    src/hello.hpp
-    src/hello.cpp
-)
-target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core)
+    	src/hello.hpp
+    	src/hello.cpp
+		src/v1/set/view.cpp
+		src/v1/set/view.hpp
+		src/v1/get/view.cpp
+		src/v1/get/view.hpp)
+target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-redis)
 
 
 # The Service
@@ -52,4 +55,4 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/configs/static_config.yaml.in ${CMAKE
 FILE(GLOB CONFIGS_FILES ${CMAKE_CURRENT_SOURCE_DIR}/configs/*.yaml ${CMAKE_CURRENT_SOURCE_DIR}/configs/*.json)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${PROJECT_NAME})
-install(FILES ${CONFIGS_FILES} DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME} COMPONENT ${PROJECT_NAME})
+	install(FILES ${CONFIGS_FILES} DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME} COMPONENT ${PROJECT_NAME})

@@ -7,6 +7,8 @@
 
 
 #include "hello.hpp"
+#include "v1/get/view.hpp"
+#include "v1/set/view.hpp"
 
 int main(int argc, char *argv[]) {
   auto component_list = userver::components::MinimalServerComponentList()
@@ -16,6 +18,8 @@ int main(int argc, char *argv[]) {
                             .Append<userver::server::handlers::TestsControl>();
 
   chess_game::AppendHello(component_list);
+  chess_game::AppendGetValue(component_list);
+  chess_game::AppendSetValue(component_list);
 
   return userver::utils::DaemonMain(argc, argv, component_list);
 }

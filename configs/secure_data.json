@@ -1,0 +1,9 @@
+{
+  "redis_settings": {
+    "taxi-tmp": {
+      "password": "",
+      "sentinels": "",
+      "shards": [{"name": "test_master0"}]
+    }
+  }
+}
