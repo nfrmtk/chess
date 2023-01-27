@@ -1,14 +1,14 @@
 version: "2.3"
 
 services:
-    service_template-container:
+    chess_game-container:
         image: ghcr.io/userver-framework/docker-userver-build-base:v1a
         privileged: true
         network_mode: bridge
         environment:
           - PREFIX=${PREFIX:-~/.local}
           - CC
-          - CCACHE_DIR=/service_template/.ccache
+          - CCACHE_DIR=/chess_game/.ccache
           - CCACHE_HASHDIR
           - CCACHE_NOHASHDIR
           - CCACHE_PREFIX
@@ -18,10 +18,10 @@ services:
           - CXX
           - MAKE_OPTS
         volumes:
-          - .:/service_template:rw
+          - .:/chess_game:rw
           - ./third_party/userver/tools/docker:/tools:ro
         ports:
           - 8080:8080
-        working_dir: /service_template
+        working_dir: /chess_game
         entrypoint:
           - /tools/run_as_user.sh

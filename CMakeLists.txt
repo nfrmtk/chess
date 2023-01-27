@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(service_template CXX)
+project(chess_game CXX)
 
 include(third_party/userver/cmake/SetupEnvironment.cmake)
 include(GNUInstallDirs)
