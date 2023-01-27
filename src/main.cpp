@@ -15,7 +15,7 @@
 int main(int argc, char *argv[]) {
   auto component_list = userver::components::MinimalServerComponentList()
                             .Append<userver::server::handlers::Ping>()
-                            .Append<userver::components::Redis>()
+                            .Append<userver::components::Redis>("key-value-database")
                             .Append<userver::components::Secdist>()
                             .Append<userver::components::DefaultSecdistProvider>()
                             .Append<userver::components::TestsuiteSupport>()
