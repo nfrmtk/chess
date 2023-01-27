@@ -25,3 +25,10 @@ services:
         working_dir: /chess_game
         entrypoint:
           - /tools/run_as_user.sh
+    redis:
+      image: redis:6.2.6
+      command: redis-server --recuire-pass a
+
+      ports:
+        - 26379:26379
+
