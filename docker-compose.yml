@@ -26,12 +26,27 @@ services:
         entrypoint:
           - /tools/run_as_user.sh
         depends_on:
+          - redis-sentinel
+        networks:
           - redis
-
+    redis-sentinel:
+        container_name: service-redis-sentinel
+        image: redis:7.0
+        command: redis-server /data/sentinel.conf --sentinel
+        ports:
+          - "26379:26379"
+        volumes:
+          - ./sentinel.conf:/data/sentinel.conf:rw
+        networks:
+          - redis
+        depends_on:
+          - redis
     redis:
-      image: redis:6.2.6
-      command: redis-server
-
+      image: redis:7.0
+      command: redis-server --cluster-enabled
       ports:
-        - 26379:26379
-
+        - "6379:6379"
+      networks:
+        - redis
+networks:
+  redis:

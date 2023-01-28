@@ -4,7 +4,6 @@ CMAKE_RELEASE_FLAGS ?=
 CMAKE_OS_FLAGS ?= -DUSERVER_FEATURE_CRYPTOPP_BLAKE2=0 -DUSERVER_FEATURE_REDIS_HI_MALLOC=1
 NPROCS ?= $(shell nproc)
 CLANG_FORMAT ?= clang-format
-
 # NOTE: use Makefile.local for customization
 -include Makefile.local
 
@@ -83,12 +82,12 @@ format:
 # Build and run service in docker environment
 .PHONY: docker-start-service-debug docker-start-service-release
 docker-start-service-debug docker-start-service-release: docker-start-service-%:
-	@docker-compose run -p 8082:8080 --rm chess_game-container $(MAKE) -- --in-docker-start-$*
+	@docker-compose run -p 8082:8080 --rm chess_game-container make -- --in-docker-start-$*
 
 # Start specific target in docker environment
 .PHONY: docker-cmake-debug docker-build-debug docker-test-debug docker-clean-debug docker-install-debug docker-cmake-release docker-build-release docker-test-release docker-clean-release docker-install-release
 docker-cmake-debug docker-build-debug docker-test-debug docker-clean-debug docker-install-debug docker-cmake-release docker-build-release docker-test-release docker-clean-release docker-install-release: docker-%:
-	docker-compose run --rm chess_game-container $(MAKE) $*
+	docker-compose run --rm chess_game-container make $*
 
 # Stop docker container and cleanup data
 .PHONY: docker-clean-data
