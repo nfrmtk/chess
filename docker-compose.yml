@@ -27,26 +27,39 @@ services:
           - /tools/run_as_user.sh
         depends_on:
           - redis-sentinel
+          - redis
+#          - redis-sentinel2
         networks:
           - redis
     redis-sentinel:
-        container_name: service-redis-sentinel
-        image: redis:7.0
-        command: redis-server /data/sentinel.conf --sentinel
-        ports:
-          - "26379:26379"
-        volumes:
-          - ./sentinel.conf:/data/sentinel.conf:rw
-        networks:
-          - redis
-        depends_on:
-          - redis
+      container_name: service-redis-sentinel
+      image: 'bitnami/redis-sentinel:latest'
+      environment:
+        - REDIS_MASTER_HOST=redis
+      ports:
+        - "26379:26379"
+      networks:
+        - redis
+#    redis-sentinel2:
+#      container_name: service-redis-sentinel2
+#      image: redis:7.0
+#      command: redis-sentinel /data/sentinel.conf
+#      ports:
+#        - "26380:26379"
+#      volumes:
+#        - ./sentinel.conf:/data/sentinel.conf:rw
+#      networks:
+#        - redis
+#      depends_on:
+#        - redis
     redis:
-      image: redis:7.0
-      command: redis-server --cluster-enabled
+      image: 'bitnami/redis:latest'
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
       ports:
         - "6379:6379"
       networks:
         - redis
 networks:
   redis:
+    driver: bridge
