@@ -4,7 +4,6 @@ services:
     chess_game-container:
         image: ghcr.io/userver-framework/docker-userver-build-base:v1a
         privileged: true
-        network_mode: bridge
         environment:
           - PREFIX=${PREFIX:-~/.local}
           - CC
@@ -27,18 +26,19 @@ services:
           - /tools/run_as_user.sh
         depends_on:
           - redis-sentinel
-          - redis
 #          - redis-sentinel2
         networks:
           - redis
     redis-sentinel:
       container_name: service-redis-sentinel
-      image: 'bitnami/redis-sentinel:latest'
+      image: 'bitnami/redis-sentinel:6.2.10'
       environment:
         - REDIS_MASTER_HOST=redis
       ports:
         - "26379:26379"
       networks:
+        - redis
+      depends_on:
         - redis
 #    redis-sentinel2:
 #      container_name: service-redis-sentinel2
