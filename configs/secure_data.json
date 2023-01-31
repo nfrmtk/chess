@@ -1,6 +1,8 @@
 {
-  "redis_settings": {
-    "taxi-tmp": {
+  "redis_settings":
+  {
+    "taxi-tmp":
+    {
 	  "password": "",
       "sentinels": [{"host": "redis-sentinel", "port": 26379}],
       "shards": [{"name": "mymaster"}]
