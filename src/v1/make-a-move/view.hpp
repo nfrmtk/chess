@@ -4,6 +4,6 @@
 
 namespace chess_game {
 
-void AppendSetValue(userver::components::ComponentList& component_list);
+void AppendMakeMove(userver::components::ComponentList& component_list);
 
 }  // namespace chess_game

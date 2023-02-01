@@ -4,6 +4,41 @@ info:
   description: chess
   version: 1.0.0
 servers:
-  - url: 'localhost:8080'
+  - url: '185.231.155.86:8082'
 paths:
-  
+  /v1/{game-id}:
+    parameters:
+      - in: path
+        name: game-id
+        schema:
+          type: string
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  last-move:
+                    type: string
+        404:
+          description: game is not found
+    post:
+      parameters:
+        - in: header
+          name: name
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+        404:
+          description: game is not found
+        400:
+          description: it's not your turn
+
+
+
+

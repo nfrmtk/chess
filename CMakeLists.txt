@@ -14,7 +14,7 @@ add_library(${PROJECT_NAME}_objs OBJECT
 		src/v1/set/view.cpp
 		src/v1/set/view.hpp
 		src/v1/get/view.cpp
-		src/v1/get/view.hpp)
+		src/v1/get/view.hpp src/v1/util/move.cpp src/v1/util/move.hpp src/v1/make-a-move/view.cpp src/v1/make-a-move/view.hpp src/v1/get-last-move/view.cpp src/v1/get-last-move/view.hpp)
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-redis)
 
 
