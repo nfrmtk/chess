@@ -22,7 +22,7 @@ class GetValue final : public userver::server::handlers::HttpHandlerBase {
       const userver::server::http::HttpRequest& request,
       userver::server::request::RequestContext&) const override {
     auto response = redis_client_->Get("answer", redis_cc_).Get();
-    auto response2 = redis_client_->return response.has_value()
+    return response.has_value()
                          ? response.value()
                          : "Not found";
   }
