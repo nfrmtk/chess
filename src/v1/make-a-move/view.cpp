@@ -8,11 +8,11 @@
 namespace chess_game {
 namespace {
 namespace uredis = userver::storages::redis;
-class LastMove final : public userver::server::handlers::HttpHandlerBase {
+class MakeMove final : public userver::server::handlers::HttpHandlerBase {
  public:
   static constexpr std::string_view kName = "handler-make-move";
 
-  LastMove(const userver::components::ComponentConfig& config,
+  MakeMove(const userver::components::ComponentConfig& config,
            const userver::components::ComponentContext& component_contex)
       : userver::server::handlers::HttpHandlerBase(config, component_contex),
         redis_client_{
@@ -50,6 +50,6 @@ class LastMove final : public userver::server::handlers::HttpHandlerBase {
 
 }  // namespace
 void AppendMakeMove(userver::components::ComponentList& component_list) {
-  component_list.Append<LastMove>();
+  component_list.Append<MakeMove>();
 }
 }  // namespace chess_game
