@@ -33,7 +33,7 @@ class MakeMove final : public userver::server::handlers::HttpHandlerBase {
     auto name = request.GetHeader("name");
     auto move_count = redis_client_->Llen(id, redis_cc_).Get();
     auto whites_name =
-        redis_client_->Lindex(id + "-players", 0, redis_cc_).Get().value();
+        redis_client_->Lindex(PlayersId(request), 0, redis_cc_).Get().value();
     if ((whites_name == name) == (move_count % 2 == 1)) {
       response.SetStatus(userver::server::http::HttpStatus::kBadRequest);
       return {};

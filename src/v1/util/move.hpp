@@ -14,4 +14,5 @@ class Move {
 };
 
 std::string GameId(const userver::server::http::HttpRequest& request);
+std::string PlayersId(const userver::server::http::HttpRequest& request);
 }  // namespace chess_game

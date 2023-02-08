@@ -25,3 +25,7 @@ std::string chess_game::GameId(
     const userver::server::http::HttpRequest& request) {
   return request.GetPathArg("game-id");
 }
+std::string chess_game::PlayersId(
+    const userver::server::http::HttpRequest& request) {
+  return request.GetPathArg("game-id") + "-players";
+}

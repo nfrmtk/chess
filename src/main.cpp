@@ -11,6 +11,8 @@
 #include "hello.hpp"
 #include "v1/make-a-move/view.hpp"
 #include "v1/get-last-move/view.hpp"
+#include "v1/make-room/view.hpp"
+#include "v1/join-room/view.hpp"
 int main(int argc, char* argv[]) {
   auto component_list =
       userver::components::MinimalServerComponentList()
@@ -25,5 +27,7 @@ int main(int argc, char* argv[]) {
   chess_game::AppendHello(component_list);
   chess_game::AppendMakeMove(component_list);
   chess_game::AppendGetLastMove(component_list);
+  chess_game::AppendJoinRoom(component_list);
+  chess_game::AppendMakeRoom(component_list);
   return userver::utils::DaemonMain(argc, argv, component_list);
 }

@@ -86,3 +86,13 @@ components_manager:
              path: /v1/{game-id}/move
              method: GET
              task_processor: main-task-processor
+
+        handler-make-room:
+            path: /v1/{game-id}
+            method: POST
+            task-processor: main-task-processor
+
+        handler-join-room:
+            path: /v1/{game-id}/join
+            method: POST
+            task-processor: main-task-processor
