@@ -26,14 +26,18 @@ class MakeMove final : public userver::server::handlers::HttpHandlerBase {
     auto& response = request.GetHttpResponse();
     auto type = redis_client_->Type(id, redis_cc_).Get();
 
-    if (type != userver::storages::redis::KeyType::kList) {
+    if (type != userver::storages::redis::KeyType::kList &&
+        type != userver::storages::redis::KeyType::kNone) {
       response.SetStatus(userver::server::http::HttpStatus::kNotFound);
       return {};
     }
-    auto name = request.GetHeader("name");
+    auto name = request.GetArg("name");
     auto move_count = redis_client_->Llen(id, redis_cc_).Get();
+
     auto whites_name =
         redis_client_->Lindex(PlayersId(request), 0, redis_cc_).Get().value();
+    LOG_DEBUG() << fmt::format("whites_name: {}, move_count: {}, name: {}",
+                               whites_name, move_count, name);
     if ((whites_name == name) == (move_count % 2 == 1)) {
       response.SetStatus(userver::server::http::HttpStatus::kBadRequest);
       return {};

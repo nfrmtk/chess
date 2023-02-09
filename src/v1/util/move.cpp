@@ -18,8 +18,8 @@ chess_game::Move::Move(const std::string& previous, const std::string& next) {
   if (next.size() != 2) {
     throw std::invalid_argument("next has bad size");
   }
-  this->previous = (previous[0] - 'A') * 8 + (previous[1] - '0');
-  this->next = (next[0] - 'A') * 8 + (next[1] - '0');
+  this->previous = (previous[0] - 'A') * 8 + (previous[1] - '1');
+  this->next = (next[0] - 'A') * 8 + (next[1] - '1');
 }
 std::string chess_game::GameId(
     const userver::server::http::HttpRequest& request) {

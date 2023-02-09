@@ -24,7 +24,8 @@ class LastMove final : public userver::server::handlers::HttpHandlerBase {
       userver::server::request::RequestContext&) const override {
     auto& response = request.GetHttpResponse();
     auto id = GameId(request);
-    if (redis_client_->Type(id, redis_cc_).Get() != userver::storages::redis::KeyType::kList) {
+    if (redis_client_->Type(id, redis_cc_).Get() !=
+        userver::storages::redis::KeyType::kList) {
       response.SetStatus(userver::server::http::HttpStatus::kNotFound);
       return {};
     }

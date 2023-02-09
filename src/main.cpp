@@ -9,10 +9,10 @@
 #include <userver/utils/daemon_run.hpp>
 
 #include "hello.hpp"
-#include "v1/make-a-move/view.hpp"
 #include "v1/get-last-move/view.hpp"
-#include "v1/make-room/view.hpp"
 #include "v1/join-room/view.hpp"
+#include "v1/make-a-move/view.hpp"
+#include "v1/make-room/view.hpp"
 int main(int argc, char* argv[]) {
   auto component_list =
       userver::components::MinimalServerComponentList()

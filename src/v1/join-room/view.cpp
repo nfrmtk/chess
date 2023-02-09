@@ -30,7 +30,8 @@ class JoinRoom final : public userver::server::handlers::HttpHandlerBase {
       response.SetStatus(userver::server::http::HttpStatus::kForbidden);
       return {};
     }
-    redis_client_->Lpush(PlayersId(request), request.GetArg("name"), redis_cc_).Wait();
+    redis_client_->Rpush(PlayersId(request), request.GetArg("name"), redis_cc_)
+        .Wait();
     return {};
   }
   uredis::ClientPtr redis_client_;

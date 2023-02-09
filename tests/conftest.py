@@ -1,4 +1,3 @@
-import pathlib
 
 import pytest
 
@@ -18,7 +17,7 @@ def service_env(redis_sentinels):
             'taxi-tmp': {
                 'password': '',
                 'sentinels': redis_sentinels,
-                'shards': [{'name': 'mymaster'}],
+                'shards': [{'name': 'test_master0'}],
             },
         },
     }
