@@ -40,6 +40,22 @@ components_manager:
         dynamic-config-fallbacks:            # Load options from file and push them into the dynamic config storage.
             fallback-path: @CONFIG_FALLBACK_PATH@
         testsuite-support: {}
+        key-value-database:
+            groups:
+              - config_name: taxi-tmp  # Key to lookup in secdist configuration
+                db: taxi-tmp           # Name to refer to the cluster in components::Redis::GetClient()
+
+            subscribe_groups:  # Array of redis clusters to work with in subscribe mode
+
+            thread_pools:
+                redis_thread_pool_size: 8
+                sentinel_thread_pool_size: 1
+
+        secdist: {}                                      # Component that stores configuration of hosts and passwords
+        default-secdist-provider:                        # Component that loads configuration of hosts and passwords
+            config: @SECURITY_PATH@  # Values are supposed to be stored in this file
+            missing-ok: true                             # ... but if the file is missing it is still ok
+            environment-secrets-key: SECDIST_CONFIG      # ... values will be loaded from this environment value
 
         http-client:
             load-enabled: $is_testing
@@ -61,3 +77,22 @@ components_manager:
             path: /hello                  # Registering handler by URL '/hello'.
             method: GET,POST              # It will only reply to GET (HEAD) and POST requests.
             task_processor: main-task-processor  # Run it on CPU bound task processor
+        handler-make-move:
+            path: /v1/{game-id}/move
+            method: POST
+            task_processor: main-task-processor
+
+        handler-last-move:
+             path: /v1/{game-id}/move
+             method: GET
+             task_processor: main-task-processor
+
+        handler-make-room:
+            path: /v1/{game-id}/make
+            method: POST
+            task_processor: main-task-processor
+
+        handler-join-room:
+            path: /v1/{game-id}/join
+            method: POST
+            task_processor: main-task-processor
