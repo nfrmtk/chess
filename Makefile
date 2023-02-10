@@ -44,12 +44,12 @@ test-debug test-release: test-%: build-%
 # Start the service (via testsuite service runner)
 .PHONY: service-start-debug service-start-release
 service-start-debug service-start-release: service-start-%: build-%
-	@cd ./build_$* && $(MAKE) start-chess_game
+	@cd ./build_$* && make start-chess_game
 
 # Cleanup data
 .PHONY: clean-debug clean-release
 clean-debug clean-release: clean-%:
-	cd build_$* && $(MAKE) clean
+	cd build_$* && make clean
 
 .PHONY: dist-clean
 dist-clean:
