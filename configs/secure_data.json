@@ -4,7 +4,7 @@
     "taxi-tmp":
     {
 	  "password": "",
-      "sentinels": [{"host": "redis-sentinel", "port": 26379}],
+      "sentinels": [{"host": "service-redis-sentinel", "port": 26379}],
       "shards": [{"name": "mymaster"}]
     }
   }
