@@ -21,10 +21,13 @@ async def test_create_room(service_client):
 
 
 async def test_make_move(service_client):
-    await service_client.post('/v1/devroom/make',
-                              params={'name': 'TesterWhites'})
-    await service_client.post('/v1/devroom/join',
-                              params={'name': 'TesterBlacks'})
+    response = await service_client.post('/v1/devroom/make',
+                                         params={'name': 'TesterWhites'})
+    assert response.status == 200
+    response = await service_client.post('/v1/devroom/join',
+                                         params={'name': 'TesterBlacks'})
+    assert response.status == 200
+
     response = await service_client.post('/v1/devroom/move', json={
         'previous': 'E2',
         'next': 'E4'
@@ -38,4 +41,24 @@ async def test_make_move(service_client):
 
     response = await service_client.get('/v1/devroom/move',
                                         params={'name': 'TesterWhites'})
+    assert response.status == 200
     assert response.json()['last-move'] == '!#'
+
+
+async def test_same_name(service_client):
+    name = {
+        'name': 'TesterWhites'
+    }
+    response = await service_client.post('/v1/devroom/make',
+                                         params=name)
+    assert response.status == 200
+
+    response = await service_client.post('/v1/devroom/join',
+                                         params=name)
+    assert response.status == 400
+
+    response = await service_client.post('/v1/devroom/join',
+                                         params={
+                                             'name': 'TesterBlacks'
+                                         })
+    assert response.status == 200

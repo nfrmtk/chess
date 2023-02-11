@@ -25,13 +25,17 @@ class JoinRoom final : public userver::server::handlers::HttpHandlerBase {
     auto id = PlayersId(request);
     auto& response = request.GetHttpResponse();
     auto len = redis_client_->Llen(id, redis_cc_).Get();
-
     if (len != 1) {
       response.SetStatus(userver::server::http::HttpStatus::kForbidden);
       return {};
     }
-    redis_client_->Rpush(PlayersId(request), request.GetArg("name"), redis_cc_)
-        .Wait();
+    auto blacks_name = request.GetArg("name");
+    auto whites_name = redis_client_->Lindex(id, 0, redis_cc_).Get().value();
+    if (whites_name == blacks_name) {
+      response.SetStatus(userver::server::http::HttpStatus::kBadRequest);
+      return {};
+    }
+    redis_client_->Rpush(id, blacks_name, redis_cc_).Wait();
     return {};
   }
   uredis::ClientPtr redis_client_;
