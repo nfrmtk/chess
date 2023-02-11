@@ -68,7 +68,7 @@ jobs:
           - name: Check work run service
             if: matrix.make == 'test-release'
             run: |
-                ps aux | grep chess_game | grep config && curl http://localhost:8080/ping -v
+                ps aux | grep chess_game | grep config && curl http://localhost:8082/ping -v
 
           - name: Stop all
             if: matrix.make == 'test-release'
