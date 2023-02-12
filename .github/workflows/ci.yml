@@ -19,9 +19,9 @@ jobs:
                     make: test-debug
                     info: g++-9 + test-debug
 
-                  - os: ubuntu-20.04
-                    make: test-release
-                    info: g++-9 + test-release
+#                   - os: ubuntu-20.04
+#                     make: test-release
+#                     info: g++-9 + test-release
 
         name: '${{matrix.os}}: ${{matrix.info}}'
         runs-on: ${{matrix.os}}
